@@ -13,9 +13,9 @@ describe('reading a user', () => {
   it('finds all users with name of joe', (done) => {
     User.find({ name: 'joe' })
       .then((users) => {
-        console.log(users[0]._id);
-        console.log(joe._id);
-        assert(users[0]._id === joe._id);
+        console.log(typeof users[0]._id.toString());
+        console.log(typeof joe._id.toString());
+        assert(users[0]._id.toString() === joe._id.toString());
         done();
       });
   });
