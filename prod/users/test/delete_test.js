@@ -17,18 +17,32 @@ describe('Deleting a user', () => {
       assert(user === null);
       done();
     });
-
-  it('class method remove', () => {
-
   });
 
-  it('class method findAndRemove', () => {
-
+  it('class method remove', (done) => {
+    User.remove({ name: 'joe' })
+      .then(() => User.findOne({ name: 'joe' }))
+      .then(user => {
+        assert(user === null);
+        done();
+      });
   });
 
-  it('class method findByIdAndRemove', () => {
-
+  it('class method findOneAndRemove', (done) => {
+    User.findOneAndRemove({ name: 'joe' })
+      .then(() => User.findOne({ name: 'joe' }))
+      .then(user => {
+        assert(user === null);
+        done();
+      });
   });
 
+  it('class method findByIdAndRemove', (done) => {
+    User.findByIdAndRemove(joe._id)
+      .then(() => User.findOne({ id: joe._id }))
+      .then(user => {
+        assert(user === null);
+        done();
+      });
   });
 });
