@@ -22,12 +22,21 @@ describe('updating records', () => {
   it('instance type using set and save', (done) => {
     joe.set('name', 'alex');
     assertName(joe.save(), done);
-
   });
-
-
 
   it('a model instance can update', (done) => {
     assertName(joe.update({'name': 'alex'}), done);
+  });
+
+  it('a model class can update', (done) => {
+
+  });
+
+  it('a model class can update one record', (done) => {
+
+  });
+
+  it('a model class can find a record with an id and update', done => {
+
   });
 });
