@@ -4,7 +4,7 @@ const User = require('../src/user');
 describe('updating records', () => {
   let joe;
   beforeEach((done) => {
-    joe = new User({ name: 'joe' });
+    joe = new User({ name: 'joe', postCount: 0 });
     joe.save()
       .then(() => done());
   });
@@ -25,18 +25,33 @@ describe('updating records', () => {
   });
 
   it('a model instance can update', (done) => {
-    assertName(joe.update({'name': 'alex'}), done);
+    assertName(joe.update({name: 'alex'}), done);
   });
 
   it('a model class can update', (done) => {
-
+    assertName(User.update({ name: 'joe'}, { name: 'alex' }),done);
   });
 
   it('a model class can update one record', (done) => {
-
+    assertName(
+      User.findOneAndUpdate({ name: 'joe' }, { name: 'alex'}),
+      done
+    );
   });
 
-  it('a model class can find a record with an id and update', done => {
+  it('a model class can find a record with an id and update', (done) => {
+    assertName(
+      User.findByIdAndUpdate(joe._id, { name: 'alex' }),
+      done
+    );
+  });
 
+  it('A user can have their postcount incremented by 1', (done) => {
+    User.update({ name: 'joe'}, { $inc: { postCount: 1 } })
+      .then(() => User.findOne({ name: 'joe' }))
+      .then((user) => {
+        assert(user.postCount === 1);
+        done();
+      });
   });
 });
